@@ -49,8 +49,8 @@ if [ -z "${VERSION}" ]; then
     MANIFEST_URL="${GITHUB_RAW_BASE}/releases/manifest.json"
     if ! curl -fsSL "${MANIFEST_URL}" -o "${TMP_DIR}/manifest.json" 2>/dev/null; then
         # Fallback to local manifest if installed from local repository clone
-        LOCAL_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-        if [ -f "${LOCAL_SCRIPT_DIR}/releases/manifest.json" ]; then
+        LOCAL_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd || echo "")"
+        if [ -n "${LOCAL_SCRIPT_DIR}" ] && [ -f "${LOCAL_SCRIPT_DIR}/releases/manifest.json" ]; then
             cp "${LOCAL_SCRIPT_DIR}/releases/manifest.json" "${TMP_DIR}/manifest.json"
         else
             log_error "Could not fetch release manifest from ${MANIFEST_URL}"
@@ -77,11 +77,11 @@ log_info "Installing tech-cofounder CLI ${VERSION_TAG} (${TARGET_PLATFORM})..."
 
 # 4. Download release archive and checksums
 log_info "Downloading ${ARCHIVE_NAME}..."
-LOCAL_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LOCAL_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd || echo "")"
 LOCAL_ARCHIVE="${LOCAL_SCRIPT_DIR}/releases/${VERSION_TAG}/${ARCHIVE_NAME}"
 LOCAL_SHA256SUMS="${LOCAL_SCRIPT_DIR}/releases/${VERSION_TAG}/SHA256SUMS"
 
-if [ -f "${LOCAL_ARCHIVE}" ] && [ -f "${LOCAL_SHA256SUMS}" ]; then
+if [ -n "${LOCAL_SCRIPT_DIR}" ] && [ -f "${LOCAL_ARCHIVE}" ] && [ -f "${LOCAL_SHA256SUMS}" ]; then
     cp "${LOCAL_ARCHIVE}" "${TMP_DIR}/${ARCHIVE_NAME}"
     cp "${LOCAL_SHA256SUMS}" "${TMP_DIR}/SHA256SUMS"
 else
