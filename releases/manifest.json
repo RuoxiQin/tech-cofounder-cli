@@ -6,7 +6,7 @@
       "assets": {
         "darwin-arm64": {
           "filename": "tc-v0.1.0-darwin-arm64.tar.gz",
-          "sha256": "38ae02ce68622dd51a9a24cec1878cbda64de8254eb211a7cc2258d500c07b2c",
+          "sha256": "73b67f7752b28e6799063817cf04f6bce744da276bf2d307e7122f067848cdbe",
           "url": "releases/v0.1.0/tc-v0.1.0-darwin-arm64.tar.gz"
         }
       }
