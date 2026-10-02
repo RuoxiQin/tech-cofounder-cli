@@ -1,0 +1,8 @@
+# Binary release archives (distributed via GitHub Releases)
+*.tar.gz
+*.zip
+*.dist/
+
+# System and OS files
+.DS_Store
+Thumbs.db

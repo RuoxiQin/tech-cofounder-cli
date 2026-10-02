@@ -42,15 +42,18 @@ tc --help
 
 ```
 .
-├── install.sh             # Zero-dependency installer script
+├── .gitignore             # Ignores large binary archives
+├── install.sh             # Zero-dependency installer script (downloads from GitHub Releases)
 ├── README.md              # Documentation
 └── releases/
     ├── manifest.json      # Machine-readable release catalog
-    └── v0.1.0/            # Versioned release assets
-        ├── tc-v0.1.0-darwin-arm64.tar.gz
-        ├── tc-v0.1.0-darwin-amd64.tar.gz
-        └── SHA256SUMS
+    ├── v0.1.0/
+    │   └── SHA256SUMS     # Checksums for v0.1.0 release
+    └── v0.1.1/
+        └── SHA256SUMS     # Checksums for v0.1.1 release
 ```
+
+Binary `.tar.gz` packages are attached directly to each [GitHub Release](https://github.com/RuoxiQin/tech-cofounder-cli/releases).
 
 ---
 
