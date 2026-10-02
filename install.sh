@@ -58,7 +58,10 @@ if [ -z "${VERSION}" ]; then
         fi
     fi
 
-    VERSION="$(grep -o '"version": "[^"]*"' "${TMP_DIR}/manifest.json" | head -n 1 | cut -d'"' -f4)"
+    VERSION="$(grep -o '"latest": "[^"]*"' "${TMP_DIR}/manifest.json" | head -n 1 | cut -d'"' -f4 || echo "")"
+    if [ -z "${VERSION}" ]; then
+        VERSION="$(grep -o '"version": "[^"]*"' "${TMP_DIR}/manifest.json" | cut -d'"' -f4 | sort -V | tail -n 1)"
+    fi
     if [ -z "${VERSION}" ]; then
         log_error "Could not parse latest version from manifest.json"
         exit 1
