@@ -17,7 +17,7 @@ curl -fsSL https://raw.githubusercontent.com/RuoxiQin/tech-cofounder-cli/main/in
 ### Install Specific Version
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/RuoxiQin/tech-cofounder-cli/main/install.sh | VERSION=v0.1.0 bash
+curl -fsSL https://raw.githubusercontent.com/RuoxiQin/tech-cofounder-cli/main/install.sh | VERSION=v0.1.1 bash
 ```
 
 ---
@@ -47,8 +47,6 @@ tc --help
 ├── README.md              # Documentation
 └── releases/
     ├── manifest.json      # Machine-readable release catalog
-    ├── v0.1.0/
-    │   └── SHA256SUMS     # Checksums for v0.1.0 release
     └── v0.1.1/
         └── SHA256SUMS     # Checksums for v0.1.1 release
 ```
