@@ -38,6 +38,21 @@ tc --help
 
 ---
 
+## App Provisioning and Deployment
+
+```bash
+tc apps create "My App" --json
+tc apps get my-app --json
+tc apps create my-app --fix --json
+tc deploy my-app "$(git rev-parse HEAD)" --json
+```
+
+`--fix` resumes initialization using the reserved GCP project and existing GitHub
+repository. Poll app status until `ready` before deployment. Deployment uses the
+exact pushed commit and waits up to twenty minutes. Successful runs populate the
+app's serving URL. `tc apps delete` retires cloud resources and removes the source
+repository; local files are preserved.
+
 ## Repository Structure
 
 ```
