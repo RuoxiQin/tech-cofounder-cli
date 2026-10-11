@@ -54,7 +54,18 @@
           "url": "releases/v0.1.5/tc-v0.1.5-darwin-arm64.tar.gz"
         }
       }
+    },
+    "v0.1.6": {
+      "version": "0.1.6",
+      "release_date": "2026-10-11T03:00:47.965888+00:00",
+      "assets": {
+        "darwin-arm64": {
+          "filename": "tc-v0.1.6-darwin-arm64.tar.gz",
+          "sha256": "cbc02f277bc13c422e32a7ea952009f144061ddbb595b0404cc8af16363069bd",
+          "url": "releases/v0.1.6/tc-v0.1.6-darwin-arm64.tar.gz"
+        }
+      }
     }
   },
-  "latest": "v0.1.5"
+  "latest": "v0.1.6"
 }
