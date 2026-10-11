@@ -53,6 +53,24 @@ steps, including previously succeeded operations. Deployment uses the exact push
 and waits up to twenty minutes. Successful runs populate the app's serving URL. `tc apps delete`
 retires cloud resources and removes the source repository; local files are preserved.
 
+CLI v0.1.9 requires a root `tech_cofounder_configs.json` for local Terraform validation:
+
+```json
+{
+  "schema_version": 1,
+  "terraform": { "directory": "infra/terraform" },
+  "web_app": {
+    "dockerfile": "web_app/Dockerfile",
+    "build_context": "web_app"
+  }
+}
+```
+
+Keep the bundled backend/frontend under `web_app/` and deploy it as one Cloud Run
+service. Paths are relative to the repository root; use `"."` for a repository-root
+build context. Run `tc validate my-app --dir . --json` at the repository root before
+pushing and deploying. Deployment reads this manifest from the exact pushed commit.
+
 ## Repository Structure
 
 ```
