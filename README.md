@@ -41,7 +41,7 @@ tc --help
 ## App Provisioning and Deployment
 
 ```bash
-tc apps create "My App" --json
+tc apps create my-app --name "My App" --json
 tc apps get my-app --json
 tc apps create my-app --fix --json
 tc deploy my-app "$(git rev-parse HEAD)" --json
