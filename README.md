@@ -48,17 +48,21 @@ tc deploy my-app "$(git rev-parse HEAD)" --json
 ```
 
 `tc apps create` dispatches backend Cloud Run provisioning and automatically waits
-up to thirty minutes for the app to reach `ready` status. `--fix` rechecks all provisioning
-steps, including previously succeeded operations. Deployment uses the exact pushed commit
+up to thirty minutes for the app to reach `ready` status. `--fix` resumes incomplete
+provisioning steps; `--hard-fix` rechecks all steps, including completed operations. Deployment uses the exact pushed commit
 and waits up to twenty minutes. Successful runs populate the app's serving URL. `tc apps delete`
 retires cloud resources and removes the source repository; local files are preserved.
 
-CLI v0.1.9 requires a root `tech_cofounder_configs.json` for local Terraform validation:
+The CLI requires a root `tech_cofounder_configs.json` for local Terraform validation.
+CLI v0.1.13 adds optional supporting files used by Terraform's `file()` function:
 
 ```json
 {
   "schema_version": 1,
-  "terraform": { "directory": "infra/terraform" },
+  "terraform": {
+    "directory": "infra/terraform",
+    "supporting_files": ["firestore.rules"]
+  },
   "web_app": {
     "dockerfile": "web_app/Dockerfile",
     "build_context": "web_app"
@@ -70,6 +74,14 @@ Keep the bundled backend/frontend under `web_app/` and deploy it as one Cloud Ru
 service. Paths are relative to the repository root; use `"."` for a repository-root
 build context. Run `tc validate my-app --dir . --json` at the repository root before
 pushing and deploying. Deployment reads this manifest from the exact pushed commit.
+
+`supporting_files` is optional and defaults to an empty list. List only UTF-8 files
+stored directly beside the Terraform configuration (for example,
+`infra/terraform/firestore.rules`). Use unique simple filenames, not nested paths
+or symlinks; `.tf`/`.tf.json` files are discovered automatically. Terraform control,
+variable, state, and binary files are unsupported companions. Keep secrets out.
+Local validation packages the declared files; deployment retrieves them from the
+exact pushed commit. Optional root `firebase.json` is for Firebase tools, not tc.
 
 ## Repository Structure
 
