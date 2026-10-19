@@ -53,6 +53,11 @@ provisioning steps; `--hard-fix` rechecks all steps, including completed operati
 and waits up to twenty minutes. Successful runs populate the app's serving URL. `tc apps delete`
 retires cloud resources and removes the source repository; local files are preserved.
 
+CLI v0.1.14 adds resource details to the readable `tc apps get <app_id>` output:
+GCP project ID, region, Cloud Run service, image repository, and numeric GitHub
+repository ID. The project ID is shown as soon as it is assigned; regional
+resource details appear after provisioning. `--json` already exposes these fields.
+
 The CLI requires a root `tech_cofounder_configs.json` for local Terraform validation.
 CLI v0.1.13 adds optional supporting files used by Terraform's `file()` function:
 
