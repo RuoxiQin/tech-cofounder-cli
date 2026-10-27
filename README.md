@@ -50,8 +50,13 @@ tc deploy my-app "$(git rev-parse HEAD)" --json
 `tc apps create` dispatches backend Cloud Run provisioning and automatically waits
 up to thirty minutes for the app to reach `ready` status. `--fix` resumes incomplete
 provisioning steps; `--hard-fix` rechecks all steps, including completed operations. Deployment uses the exact pushed commit
-and waits up to twenty minutes. Successful runs populate the app's serving URL. `tc apps delete`
+and waits up to sixty-five minutes. Successful runs populate the app's serving URL. `tc apps delete`
 retires cloud resources and removes the source repository; local files are preserved.
+
+CLI v0.1.15 waits up to sixty-five minutes for `tc deploy` and `tc validate`, longer
+than the platform's one-hour worker limit, so a long deploy (for example one that
+builds Firestore indexes) is reported as finished rather than timed out. Run it in the
+background if your agent's shell stops commands sooner.
 
 CLI v0.1.14 adds resource details to the readable `tc apps get <app_id>` output:
 GCP project ID, region, Cloud Run service, image repository, and numeric GitHub
