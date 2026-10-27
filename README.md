@@ -45,13 +45,22 @@ tc apps create my-app --name "My App" --json
 tc apps get my-app --json
 tc apps create my-app --fix --json
 tc deploy my-app "$(git rev-parse HEAD)" --json
+tc deploys get my-app <deploy_id> --json
 ```
 
 `tc apps create` dispatches backend Cloud Run provisioning and automatically waits
 up to thirty minutes for the app to reach `ready` status. `--fix` resumes incomplete
-provisioning steps; `--hard-fix` rechecks all steps, including completed operations. Deployment uses the exact pushed commit
-and waits up to sixty-five minutes. Successful runs populate the app's serving URL. `tc apps delete`
+provisioning steps; `--hard-fix` rechecks all steps, including completed operations. Deployment uses the exact pushed commit.
+`tc deploy` returns as soon as the deploy is accepted; check it with `tc deploys get`
+until its status is `succeeded` or `failed`. Successful runs populate the app's serving URL. `tc apps delete`
 retires cloud resources and removes the source repository; local files are preserved.
+
+CLI v0.1.16 no longer waits for deploys or validations. `tc deploy` and `tc validate`
+print the accepted run, including its ID, and exit. `tc deploys get <app_id>
+<deploy_id>` and `tc validations get <app_id> <validation_id>` read its status once:
+a pending or running run exits 0, and a finished run exits with the codes
+`tc deploy` and `tc validate` use for success or failure. Check every minute or so
+until the run finishes; a deploy can take 20 minutes or more.
 
 CLI v0.1.15 waits up to sixty-five minutes for `tc deploy` and `tc validate`, longer
 than the platform's one-hour worker limit, so a long deploy (for example one that
