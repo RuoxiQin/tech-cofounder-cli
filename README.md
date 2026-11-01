@@ -55,6 +55,11 @@ provisioning steps; `--hard-fix` rechecks all steps, including completed operati
 until its status is `succeeded` or `failed`. Successful runs populate the app's serving URL. `tc apps delete`
 retires cloud resources and removes the source repository; local files are preserved.
 
+CLI v0.1.17 supports apps whose `tech_cofounder_configs.json` declares a
+`static_site` folder, such as privacy and support pages for app store listings.
+`tc validate` plans those apps' Firebase Hosting release, and `tc deploys get`
+prints the site URL (`static_site_url` in `--json`) after a successful deploy.
+
 CLI v0.1.16 no longer waits for deploys or validations. `tc deploy` and `tc validate`
 print the accepted run, including its ID, and exit. `tc deploys get <app_id>
 <deploy_id>` and `tc validations get <app_id> <validation_id>` read its status once:
