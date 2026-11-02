@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Source of truth: tech-cofounder/cli/src/tc_cli/install.sh. scripts/build_cli.py bundles
+# it into the tc binary for `tc update` and publishes it to tech-cofounder-cli; edit it
+# only here.
 # tech-cofounder CLI Installer
 # Installs standalone binary release to ~/.local/share/tech-cofounder/ and links ~/.local/bin/tc
 

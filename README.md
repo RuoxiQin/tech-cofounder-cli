@@ -55,6 +55,11 @@ provisioning steps; `--hard-fix` rechecks all steps, including completed operati
 until its status is `succeeded` or `failed`. Successful runs populate the app's serving URL. `tc apps delete`
 retires cloud resources and removes the source repository; local files are preserved.
 
+CLI v0.1.18 adds `tc update`, which installs the latest release over a `tc` that this
+installer set up. It refuses to replace any other copy, such as a development
+checkout. `install.sh` here is published from the CLI source on each release; edit it
+in the tech-cofounder repository instead.
+
 CLI v0.1.17 supports apps whose `tech_cofounder_configs.json` declares a
 `static_site` folder, such as privacy and support pages for app store listings.
 `tc validate` plans those apps' Firebase Hosting release, and `tc deploys get`
