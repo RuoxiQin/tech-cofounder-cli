@@ -55,6 +55,12 @@ provisioning steps; `--hard-fix` rechecks all steps, including completed operati
 until its status is `succeeded` or `failed`. Successful runs populate the app's serving URL. `tc apps delete`
 retires cloud resources and removes the source repository; local files are preserved.
 
+CLI v0.1.19 adds Google Analytics. `tc apps get` shows the app's GA4 property ID and
+Measurement ID, and `tc apps analytics-viewers add|list|remove <app_id> [email]` grants
+a Google account Viewer on that property, so the user can read reports on the web or in
+the Google Analytics phone app. Run `tc apps create <app_id> --fix` once for an app
+created before this release to give it a property.
+
 CLI v0.1.18 adds `tc update`, which installs the latest release over a `tc` that this
 installer set up. It refuses to replace any other copy, such as a development
 checkout. `install.sh` here is published from the CLI source on each release; edit it
