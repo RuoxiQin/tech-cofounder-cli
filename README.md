@@ -55,6 +55,11 @@ provisioning steps; `--hard-fix` rechecks all steps, including completed operati
 until its status is `succeeded` or `failed`. Successful runs populate the app's serving URL. `tc apps delete`
 retires cloud resources and removes the source repository; local files are preserved.
 
+CLI v0.1.20 reads analytics that hold only the GA4 property ID. tc now links each app's
+Firebase project to its property, so every Firebase app gets its own stream and web apps
+read their Measurement ID in Terraform. `tc apps get` shows the property ID; v0.1.19
+fails on `tc apps get` and `tc deploys get` for apps with analytics, so run `tc update`.
+
 CLI v0.1.19 adds Google Analytics. `tc apps get` shows the app's GA4 property ID and
 Measurement ID, and `tc apps analytics-viewers add|list|remove <app_id> [email]` grants
 a Google account Viewer on that property, so the user can read reports on the web or in
