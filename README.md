@@ -55,6 +55,13 @@ provisioning steps; `--hard-fix` rechecks all steps, including completed operati
 until its status is `succeeded` or `failed`. Successful runs populate the app's serving URL. `tc apps delete`
 retires cloud resources and removes the source repository; local files are preserved.
 
+CLI v0.1.21 requires manifest schema version 2, which names every Cloud Run service,
+static site, iOS app and Android app the repository deploys. The platform no longer
+accepts schema version 1, and rejects `tc validate` from v0.1.20, so run `tc update`
+and migrate the manifest. `tc deploys get` prints a URL per Cloud Run service and per
+static site (`cloud_run_service_urls` and `static_site_urls` in `--json`), and
+`tc apps get` prints the latest Cloud Run service URLs.
+
 CLI v0.1.20 reads analytics that hold only the GA4 property ID. tc now links each app's
 Firebase project to its property, so every Firebase app gets its own stream and web apps
 read their Measurement ID in Terraform. `tc apps get` shows the property ID; v0.1.19
@@ -98,21 +105,23 @@ CLI v0.1.13 adds optional supporting files used by Terraform's `file()` function
 
 ```json
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "terraform": {
     "directory": "infra/terraform",
     "supporting_files": ["firestore.rules"]
   },
-  "web_app": {
-    "dockerfile": "web_app/Dockerfile",
-    "build_context": "web_app"
+  "cloud_run_services": {
+    "web": {
+      "dockerfile_path": "web_app/Dockerfile",
+      "build_context_directory": "web_app"
+    }
   }
 }
 ```
 
-Keep the bundled backend/frontend under `web_app/` and deploy it as one Cloud Run
-service. Paths are relative to the repository root; use `"."` for a repository-root
-build context. Run `tc validate my-app --dir . --json` at the repository root before
+Each `cloud_run_services` key is a Cloud Run service name; optional `static_sites`,
+`ios_apps` and `android_apps` maps declare the rest. Paths are relative to the
+repository root; use `"."` for a repository-root build context directory. Run `tc validate my-app --dir . --json` at the repository root before
 pushing and deploying. Deployment reads this manifest from the exact pushed commit.
 
 `supporting_files` is optional and defaults to an empty list. List only UTF-8 files
