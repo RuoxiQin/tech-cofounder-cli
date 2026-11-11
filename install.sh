@@ -21,19 +21,23 @@ log_error() {
 
 # 1. Detect OS
 OS_NAME="$(uname -s | tr '[:upper:]' '[:lower:]')"
-if [ "${OS_NAME}" != "darwin" ]; then
-    log_error "tech-cofounder CLI currently only provides standalone releases for macOS (Darwin)."
-    exit 1
-fi
+case "${OS_NAME}" in
+    darwin|linux)
+        ;;
+    *)
+        log_error "tech-cofounder CLI provides standalone releases for macOS and Linux (including WSL2), not ${OS_NAME}."
+        exit 1
+        ;;
+esac
 
 # 2. Detect Architecture
 ARCH_RAW="$(uname -m)"
 case "${ARCH_RAW}" in
     x86_64|amd64)
-        TARGET_PLATFORM="darwin-amd64"
+        TARGET_PLATFORM="${OS_NAME}-amd64"
         ;;
     arm64|aarch64)
-        TARGET_PLATFORM="darwin-arm64"
+        TARGET_PLATFORM="${OS_NAME}-arm64"
         ;;
     *)
         log_error "Unsupported architecture: ${ARCH_RAW}"

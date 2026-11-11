@@ -2,13 +2,14 @@
 
 Public binary distribution repository for `tc` — the command-line client for the [tech-cofounder](https://github.com/RuoxiQin/tech-cofounder-skills) platform.
 
-This repository hosts standalone macOS native builds compiled with Nuitka, version manifests, and SHA-256 checksums. Standalone releases bundle their required runtime and dependencies without requiring a host Python or virtual environment.
+This repository hosts standalone native builds for macOS (Apple silicon) and Linux (x86_64 and arm64, including Windows WSL2), compiled with Nuitka, version manifests, and SHA-256 checksums. Standalone releases bundle their required runtime and dependencies without requiring a host Python or virtual environment.
 
 ---
 
-## Quick Install (macOS)
+## Quick Install (macOS, Linux and WSL2)
 
-Install the latest version into `~/.local/share/tech-cofounder/` and link the binary to `~/.local/bin/tc`:
+On Windows, run this inside a WSL2 distribution such as Ubuntu; Linux builds need
+glibc 2.35 or later (Ubuntu 22.04 or later). Install the latest version into `~/.local/share/tech-cofounder/` and link the binary to `~/.local/bin/tc`:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/RuoxiQin/tech-cofounder-cli/main/install.sh | bash
@@ -54,6 +55,9 @@ provisioning steps; `--hard-fix` rechecks all steps, including completed operati
 `tc deploy` returns as soon as the deploy is accepted; check it with `tc deploys get`
 until its status is `succeeded` or `failed`. Successful runs populate the app's serving URL. `tc apps delete`
 retires cloud resources and removes the source repository; local files are preserved.
+
+CLI v0.1.22 adds Linux builds for x86_64 and arm64, so `tc` installs on Linux and
+Windows WSL2 with the same command as macOS. Earlier releases are macOS only.
 
 CLI v0.1.21 requires manifest schema version 2, which names every Cloud Run service,
 static site, iOS app and Android app the repository deploys. The platform no longer

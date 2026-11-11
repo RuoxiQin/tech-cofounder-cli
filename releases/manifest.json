@@ -230,7 +230,28 @@
           "url": "releases/v0.1.21/tc-v0.1.21-darwin-arm64.tar.gz"
         }
       }
+    },
+    "v0.1.22": {
+      "version": "0.1.22",
+      "release_date": "2026-11-11T06:06:37.809642+00:00",
+      "assets": {
+        "darwin-arm64": {
+          "filename": "tc-v0.1.22-darwin-arm64.tar.gz",
+          "sha256": "4e1e23f0ad324dc3269136cf08e851fbbd656b305781e222e7819ddf9b94aaa8",
+          "url": "releases/v0.1.22/tc-v0.1.22-darwin-arm64.tar.gz"
+        },
+        "linux-arm64": {
+          "filename": "tc-v0.1.22-linux-arm64.tar.gz",
+          "sha256": "442af740474099fdf515be2a12c7ef08dc39c40b92e27474a00140d51cc586ce",
+          "url": "releases/v0.1.22/tc-v0.1.22-linux-arm64.tar.gz"
+        },
+        "linux-amd64": {
+          "filename": "tc-v0.1.22-linux-amd64.tar.gz",
+          "sha256": "4c13a587999fe9b25d9a07a8cf2ae7cbf121cd6fdaffe3e81228af77eddf0b13",
+          "url": "releases/v0.1.22/tc-v0.1.22-linux-amd64.tar.gz"
+        }
+      }
     }
   },
-  "latest": "v0.1.21"
+  "latest": "v0.1.22"
 }
